@@ -1,0 +1,48 @@
+﻿<html>   
+    <head>    
+        <title>管理申请表单</title>   
+    </head>   
+    <body align="center" background="/media/Images/back.jpg">
+    <p align="center"><font size="32" face="华文行楷" color="#FF0000">欢迎使用设备管理平台</font></p>
+    </body> 
+    <p align="center"><a href="/homepage">返回主页</a></p>
+        <p align="center">分类：1-计算机 2-家具 3-仪器</p>
+    <p align="center"><p align="center"><font size="6" face="楷体" color="blue">
+欢迎你，管理员{{Username}},正在申请表单如下：</font></p>
+    <p align="center">添加设备申请：</p>
+    <p align="center"><a href="/show_addform">查看所有增加表单</a></p>
+<table border=1 align="center" background="/media/Images/formback.jpg">
+ <tr>
+  <th>表单号</th><th>分类</th><th>申请人</th><th>设备名</th><th>数量</th><th>状态</th>
+ </tr>
+{% for addform in addform_list %}
+ <tr>
+  <td>{{ addform.Formnumber }}</td>
+  <td>{{ addform.Level }}</td>
+  <td><a href="/user_inform/?acount={{addform.Applicant}}">{{ addform.Applicant }}</a></td>
+  <td>{{ addform.Name }}</td>
+  <td>{{ addform.Amount }}</td>
+  <td>{{ addform.State }}</td>
+  <td><a href="/add_apply/?form={{addform.Formnumber}}">查看详细</a></td>
+ </tr>
+{% endfor %}
+</table>
+    <p align="center">其它申请：</p>
+    <p align="center"><a href="/show_form">查看所有</a></p>
+<table border=1 align="center" >
+ <tr>
+  <th>表单号</th><th>操作</th><th>申请人</th><th>日期</th><th>状态</th><th>详细</th>
+ </tr>
+{% for form in form_list %}
+ <tr>
+  <td>{{ form.Formnumber }}</td>
+  <td>{{ form.Action }}</td>  
+  <td><a href="/user_inform/?acount={{form.Applicant}}">{{ form.Applicant }}</a></td>
+  <td>{{ form.Date }}</td>
+  <td>{{ form.State }}</td>
+  
+  <td><a href="/manage_apply/?form={{form.Formnumber}}">查看详细</a></td>
+ </tr>
+{% endfor %}
+</table>
+</html>   

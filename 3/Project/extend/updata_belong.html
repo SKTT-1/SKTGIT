@@ -1,0 +1,22 @@
+﻿<html>
+  <head>
+    <title>修改单位信息</title>
+</head>
+  <body align="center" background="/media/Images/back.jpg">
+    <p align="center"><h1>修改单位信息</h1></p>
+    <p align="center"><a href="/check_belong">返回</a></p>
+{% if error == 1 %}
+<p align="center">信息为空！</p>
+{% endif %}
+<form method="post">
+<table border=1 align="center" background="/media/Images/formback.jpg">
+ <tr>
+  <tr><td>名称</td><td><input name="name" type="text" value={{belong.Name}} ></td></tr>
+  <tr><td>地址</td><td><input name="address" type="text" value={{belong.Address}} ></td></tr>
+  <tr><td>电话</td><td><input name="phone" type="text" value={{belong.Phone}} ></td></tr>
+  <tr><td><input type="submit" value="修改"> <input type="reset" value="重填"></td></tr>
+ </tr>
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,37 @@
+﻿<html>   
+    <head>    
+        <title>表单设备详情</title>   
+    </head>   
+    <body align="center" background="/media/Images/back.jpg">
+    {% if judge == 0 %}
+    <p align="center"><a href="/user_form/?form={{formnumber}}">返回</a></p>
+    {% elif judge == 1 %}
+    <p align="center"><a href="/borrow_apply/?form={{formnumber}}">返回</a></p>
+    {% elif judge == 2 %}
+    <p align="center"><a href="/dumping_apply/?form={{formnumber}}">返回</a></p>
+    {% elif judge == 3 %}
+    <p align="center"><a href="/allot_apply/?form={{formnumber}}">返回</a></p>
+    {% else %}
+    <p align="center"><a href="/manage_apply/?form={{formnumber}}">返回</a></p>
+    {% endif %}
+    <p align="center">设备如下：</p>
+<table border=1 align="center" background="/media/Images/formback.jpg">
+ <tr>
+  <th>设备号</th><th>类别</th><th>设备名</th><th>规格</th><th>日期</th><th>单价</th><th>状态</th><th>借出人</th>
+ </tr>
+{% for device in device_list %}
+ <tr>
+  <td>{{ device.SN }}</td>
+  <td>{{ device.Kind }}</td>
+  <td>{{ device.Name }}</td>
+  <td>{{ device.Formatx }}</td>
+  <td>{{ device.Date }}</td>
+  <td>{{ device.Price }}</td>
+  <td>{{ device.State }}</td>
+  <td>{{ device.Borrower }}</td>
+ </tr>
+{% endfor %}
+</table>
+</form>
+</body>
+</html>

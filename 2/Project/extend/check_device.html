@@ -1,0 +1,112 @@
+<html>   
+    <head>    
+        <title>搜索设备</title> 
+<script language=javascript>
+    function check(f){
+        var reg = /^(\d{4})-(\d{2})-(\d{2})$/;  
+        var str = f.date.value;  
+        var arr = reg.exec(str);  
+        if (f.date.value != '' && (!reg.test(str) || RegExp.$2 > 12 || RegExp.$3 > 31)){  
+            alert("请保证输入的日期格式为yyyy-mm-dd或正确的日期!");  
+            return false;  
+        }
+        var regExp=/^\d+(\.\d+)?$/;
+        var elementTxt=f.price.value;
+        if(f.price.value != '' && !regExp.test (elementTxt))
+        {
+            alert("价格请输入数字!");  
+            return false;
+        }
+    }
+    function setdate()
+    {
+        var dd = new Date();
+        var mon = dd.getUTCMonth()+1;
+            if(mon < 10)
+                mon = "0"+mon;
+        var year = dd.getUTCFullYear();
+        var day = dd.getUTCDate();
+        document.getElementById("dateShow").value = year+"-"+mon+"-"+day;
+    }
+</script>  
+    </head> 
+{% load pagination_tags %}  
+    <body align="center" background="/media/Images/back.jpg">
+    <p align="center">
+<p align="center"><font size="6" face="楷体" color="blue">欢迎你，管理员{{Username}}</font></p>
+    <p align="center"><a href="/homepage">返回主页</a></p>
+    <p align="center"> 搜索设备：</p>
+<form method="post" onsubmit="return check(this)">
+<table border=1 align="center" background="/media/Images/formback.jpg">
+ <tr>
+  <tr><td>分类<select name="level" value={{search.Level}}>
+  <option value="">全部</option>
+  {% if search.Level == "1" %}
+  <option value="1" selected="selected">计算机</option>
+  {% else %}
+  <option value="1">计算机</option>
+  {% endif %}
+  {% if search.Level == "2" %}
+  <option value="2" selected="selected">家具</option>
+  {% else %}
+  <option value="2">家具</option>
+  {% endif %}
+  {% if search.Level == "3" %}
+  <option value="3" selected="selected">仪器</option>
+  {% else %}
+  <option value="3">仪器</option>
+  {% endif %}
+  </td></tr>
+  <tr><td>类别<input name="kind" type="text" value={{search.Kind}}></td></tr>
+  <tr><td>名字<input name="name" type="text" value={{search.Name}}></td></tr>
+  <tr><td>日期<input name="date" type="date" id="dateShow" value={{search.Date}}><input type="button" onClick="setdate()" value="今日" align="right"></td></tr>
+  <tr><td>价格<input name="price" type="text" value={{search.Price}}></td></tr>
+  <tr><td>状态<select name="state" value={{judge}}>
+  <option value="">全部</option>
+  {% if judge == 1 %}
+  <option value="正常" selected="selected">正常</option>
+  {% else %}
+  <option value="正常">正常</option>
+  {% endif %}
+  {% if judge == 2 %}
+  <option value="借出" selected="selected">借出</option>
+  {% else %}
+  <option value="借出">借出</option>
+  {% endif %}
+  {% if judge == 3 %}
+  <option value="报废" selected="selected">报废</option>
+  {% else %}
+  <option value="报废">报废</option>
+  {% endif %}
+  </td></tr>
+  <tr><td>借出人<input name="borrower" type="text" value={{search.Borrower}}></td></tr>
+  <tr><td><input type="submit" name="search" value="搜索"> <input type="reset" value="重填"></td></tr>
+ </tr>
+</table>
+</form>
+
+
+<form method="post">
+<table border=1 align="center" background="/media/Images/formback.jpg">
+ <tr>
+<th>SN</th><th>分类</th><th>类别</th><th>名字</th><th>添加日期</th><th>规格</th><th>价格</th><th>状态</th><th>借出人</th>
+ </tr>
+{% autopaginate device_list 15 %}
+{% for device in device_list %}
+ <tr>
+  <td>{{ device.SN }}</td>
+  <td>{{ device.Level }}</td>
+  <td>{{ device.Kind }}</td>
+  <td>{{ device.Name }}</td>
+  <td>{{ device.Date }}</td>
+  <td>{{ device.Formatx }}</td>
+  <td>{{ device.Price }}</td>
+  <td>{{ device.State }}</td>
+  <td>{{ device.Borrower }}</td>
+ </tr>
+{% endfor %}
+</table>
+</form>
+<p>{% paginate %}</p>
+</body> 
+</html> 

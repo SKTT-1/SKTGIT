@@ -1,0 +1,51 @@
+﻿<html>   
+    <head>    
+        <title>表单详情</title>   
+<script>
+    function check(f){
+        if( f.suggestion.value == '' ){
+            alert("请输入审批意见！")
+            return false;
+        }
+    }
+</script>
+    </head>   
+    <body align="center" background="/media/Images/back.jpg">
+    <p align="center"><font size="6" face="楷体" color="blue">欢迎你，管理员{{Username}}</font></p>
+    <p align="center">添加设备表单：</p>
+    <p align="center"><a href="/manage_form/">返回</a></p>
+
+<form method="post" onsubmit="return check(this)">
+<table border=1 align="center" background="/media/Images/formback.jpg">
+<tr><td>表单号</td><td>{{ addform.Formnumber }}</td></tr>
+<tr><td>分类</td><td>{{ addform.Level }}</td></tr>
+<tr><td>类别</td><td>{{ addform.Kind }}</td></tr>
+<tr><td>申请人</td><td>{{ addform.Applicant }}</td></tr>
+<tr><td>姓名</td><td>{{ user.Name }}</td></tr>
+<tr><td>归属单位</td><td>{{ user.Belong }}</td></tr>
+<tr><td>设备名</td><td>{{ addform.Name }}</td></tr>
+<tr><td>规格</td><td>{{ addform.Formatx }}</td></tr>
+<tr><td>单价</td><td>{{ addform.Price }}</td></tr>
+<tr><td>数量</td><td>{{ addform.Amount }}</td></tr>
+<tr><td>日期</td><td>{{ addform.Date }}</td></tr>
+<tr><td>状态</td><td>{{ addform.State }}</td></tr>
+<tr><td>申请理由</td><td>
+<textarea rows="10" cols="30" type="text" name="reason" readonly="readonly" maxlength=200>
+{{ addform.Reason }}</textarea></td></tr>
+{% if judge == 0  %}
+<tr><td>审批意见</td><td>
+<textarea rows="10" cols="30" type="text" name="suggestion" maxlength=200>
+</textarea></td></tr>
+<tr><td><input type="submit" name="agree" value="同意"> <input type="submit" name="disagree" value="不同意"></td></tr>
+{% elif judge == 2  %}
+<tr><td>已删除</td></tr>
+{% else %}
+<tr><td>审批意见</td><td>
+<textarea rows="10" cols="30" type="text" name="suggestion" readonly="readonly" maxlength=200>
+{{ addform.Suggestion }}</textarea></td></tr>
+<tr><td>{{ addform.State }}</td></tr>
+{% endif %}
+</table>
+</form>
+</body>
+</html>
